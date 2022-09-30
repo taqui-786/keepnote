@@ -6,12 +6,12 @@ import Notes from "./Note";
 
 const localData = ()=> {
  
-  return( localStorage.getItem("notes") !== undefined ? JSON.parse(localStorage.getItem("notes")) : null)
+  return( localStorage.getItem("Newnote") !== undefined ? JSON.parse(localStorage.getItem("Newnote")) : null)
  }
 
 
 function App() {
-  const [note, setNote] = useState(localData())
+  const [note, setNote] = useState(localData)
   const [box,setBox] = useState(true)
 const NewBox = () =>{
   setBox(false)
@@ -30,29 +30,29 @@ function AddNote(data) {
          title: data.title,
          content: data.content,
         }
-        return [...prevData, newData];
+        return [...prevData, [newData]];
       });
     }
     
 }
 
 useEffect(() => {
-  localStorage.setItem("notes", JSON.stringify(note));
+  localStorage.setItem("Newnote", JSON.stringify(note));
 }, [note]);
 function onDelete(indx) {
   setNote((prev) => {
     return prev.filter((val) => {
-      return indx !== val.id;
+      return indx !== val[0].id;
     });
   });
 }
-function selectedNote(id) {
-  note.find((elem) => {
-    return elem.id === id;
-  });
+// function selectedNote(id) {
+//   const finded = note.find((elem) => {
+//     return elem.id === id;
+//   });
 
-}
-
+//   // console.log(finded)
+// }
 
 
 
@@ -67,12 +67,12 @@ function selectedNote(id) {
         {note && note.map((val) => {
           return (
             <Notes
-              title={val.title}
-              content={val.content}
-              key={val.id}
-              id={val.id}
+              title={val[0].title}
+              content={val[0].content}
+              key={val[0].id}
+              id={val[0].id}
               deleteItem={onDelete}
-              selectedNote={selectedNote}
+              // selectedNote={selectedNote}
             />
           );
         })}
