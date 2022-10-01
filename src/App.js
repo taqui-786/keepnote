@@ -6,7 +6,7 @@ import Notes from "./Note";
 
 const localData = ()=> {
  
-  return( localStorage.getItem("Newnote") !== undefined ? JSON.parse(localStorage.getItem("Newnote")) : null)
+  return( localStorage.getItem("Newnote") !== undefined ? JSON.parse(localStorage.getItem("Newnote")) : [])
  }
 
 
